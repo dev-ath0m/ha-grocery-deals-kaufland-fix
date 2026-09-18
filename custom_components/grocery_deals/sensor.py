@@ -111,9 +111,23 @@ class GroceryDealsOverviewSensor(
             f_name for f_name, info in filters_data.items() if info.get("on_sale")
         ]
 
+        all_matched_deals: list[dict[str, Any]] = []
+        seen_deals: set[tuple[str, str, str]] = set()
+        for info in filters_data.values():
+            for offer in info.get("offers", []):
+                key = (
+                    str(offer.get("domain", "")),
+                    str(offer.get("store_title", "")),
+                    str(offer.get("title", "")),
+                )
+                if key not in seen_deals:
+                    seen_deals.add(key)
+                    all_matched_deals.append(offer)
+
         return {
             "total_filters": len(filters_data),
             "filters_on_sale": active_filters_on_sale,
+            "all_matched_deals": all_matched_deals,
             "connected_supermarket_integrations": list(providers.keys()),
             "total_offers_analyzed": data.get("total_offers_analyzed", 0),
             ATTR_ATTRIBUTION: ATTRIBUTION,
