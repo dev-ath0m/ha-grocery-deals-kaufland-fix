@@ -64,6 +64,54 @@ Kaufland support is intentionally implemented as a small adapter in Grocery Deal
 
 ---
 
+## 🃏 Lovelace card
+
+Grocery Deals exposes the same canonical offer fields regardless of supermarket provider. That means a standard Home Assistant Markdown card can display Kaufland, REWE, EDEKA, Lidl, ALDI, NORMA and other supported offers without provider-specific templates.
+
+Add a **Markdown** card to your dashboard:
+
+~~~yaml
+type: markdown
+entity_id:
+  - sensor.grocery_deals_active_deals
+content: |
+  ## 🛒 Grocery Deals
+
+  {% set deals = state_attr('sensor.grocery_deals_active_deals', 'all_matched_deals') or [] %}
+  {% if deals %}
+  {% for deal in deals %}
+  {% if deal.picture_link %}
+  <img src="{{ deal.picture_link }}" width="110" align="left" style="margin-right:12px;">
+  {% endif %}
+  **{{ deal.product_title }}**  
+  🏪 {{ deal.store_title }}  
+  💶 **{{ deal.price }}**{% if deal.base_price %} · {{ deal.base_price }}{% endif %}  
+  {% if deal.valid_until %}📅 gültig bis {{ deal.valid_until }}{% endif %}
+
+  ---
+  {% endfor %}
+  {% else %}
+  Keine passenden Angebote gefunden.
+  {% endif %}
+~~~
+
+For a single product filter, use its filter sensor and the `offers` attribute:
+
+~~~yaml
+type: markdown
+entity_id:
+  - sensor.grocery_deals_filter_butter
+content: |
+  {% set offers = state_attr('sensor.grocery_deals_filter_butter', 'offers') or [] %}
+  {% for offer in offers %}
+  **{{ offer.product_title }}** — **{{ offer.price }}**  
+  🏪 {{ offer.store_title }}{% if offer.base_price %} · {{ offer.base_price }}{% endif %}  
+  {% if offer.valid_until %}📅 bis {{ offer.valid_until }}{% endif %}
+
+  ---
+  {% endfor %}
+~~~
+
 ## ❤️ Support This Project
 
 > I maintain this integration in my **free time alongside my regular job**.
