@@ -232,13 +232,21 @@ class GroceryDealsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         # Image link
         picture = (
             raw.get("picture_link")
-            or raw.get("picture")
             or raw.get("image_url")
             or raw.get("imageUrl")
+            or raw.get("listImage")
+            or raw.get("picture")
             or ""
         )
 
         # Validity
+        valid_from = (
+            raw.get("valid_from")
+            or raw.get("validFrom")
+            or raw.get("date_from")
+            or raw.get("dateFrom")
+            or ""
+        )
         valid_until = (
             raw.get("valid_until")
             or raw.get("valid_to")
@@ -260,6 +268,7 @@ class GroceryDealsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             "price_numeric": numeric_price,
             "base_price": str(base_price).strip(),
             "picture": picture,
+            "valid_from": valid_from,
             "valid_until": valid_until,
             "category": category,
             "domain": domain,
