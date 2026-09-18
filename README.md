@@ -4,8 +4,8 @@
   <p><strong>Universal Supermarket Deals & Discount Aggregator for Home Assistant. Automatically aggregates offers across REWE, EDEKA, Lidl, ALDI, Norma, and Kaufland to find the best prices and notify you when your favorite products are on sale!</strong></p>
 
   [![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://hacs.xyz)
-  [![Downloads](https://img.shields.io/github/downloads/FaserF/ha-grocery-deals/latest/grocery_deals.zip?label=Downloads&style=for-the-badge)](https://github.com/FaserF/ha-grocery-deals/releases)
-  [![GitHub Release](https://img.shields.io/github/v/release/FaserF/ha-grocery-deals?style=for-the-badge)](https://github.com/FaserF/ha-grocery-deals/releases)
+  [![Downloads](https://img.shields.io/github/downloads/dev-ath0m/ha-grocery-deals-kaufland-fix/latest/grocery_deals.zip?label=Downloads&style=for-the-badge)](https://github.com/dev-ath0m/ha-grocery-deals-kaufland-fix/releases)
+  [![GitHub Release](https://img.shields.io/github/v/release/dev-ath0m/ha-grocery-deals-kaufland-fix?style=for-the-badge)](https://github.com/FaserF/ha-grocery-deals/releases)
   [![License](https://img.shields.io/github/license/FaserF/ha-grocery-deals?style=for-the-badge)](LICENSE)
 </div>
 
