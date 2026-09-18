@@ -5,9 +5,9 @@
     "@FaserF"
   ],
   "config_flow": true,
-  "documentation": "https://github.com/FaserF/ha-grocery-deals",
+  "documentation": "https://github.com/dev-ath0m/ha-grocery-deals-kaufland-fix",
   "integration_type": "hub",
   "iot_class": "calculated",
-  "issue_tracker": "https://github.com/FaserF/ha-grocery-deals/issues",
+  "issue_tracker": "https://github.com/dev-ath0m/ha-grocery-deals-kaufland-fix/issues",
   "version": "0.1.2"
 }
