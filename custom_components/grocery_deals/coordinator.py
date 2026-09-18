@@ -218,19 +218,23 @@ class GroceryDealsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         valid_until = raw.get("valid_until") or ""
         category = raw.get("category") or raw.get("category_title") or ""
 
+        product_title = str(title).strip()
+        price = str(price_raw).strip()
+        base = str(base_price).strip()
+
         return {
-            "title": str(title).strip(),
-            "price_raw": str(price_raw).strip(),
+            "product_title": product_title,
+            "price": price,
             "price_numeric": parse_price_value(price_raw),
-            "base_price": str(base_price).strip(),
-            "picture": picture,
+            "base_price": base,
+            "picture_link": picture,
             "valid_from": valid_from,
             "valid_until": valid_until,
-            "category": category,
-            "domain": domain,
+            "category": str(category).strip(),
             "store_name": store_name,
             "store_title": entry_title,
         }
+
 
     async def _async_update_data(self) -> dict[str, Any]:
         """Perform aggregation across all active supermarket data sources."""
@@ -246,7 +250,7 @@ class GroceryDealsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             matched_offers: list[dict[str, Any]] = []
 
             for offer in all_offers:
-                title = offer["title"].lower()
+                title = offer["product_title"].lower()
                 category = offer["category"].lower()
                 base_price = offer["base_price"].lower()
                 combined = f"{title} {category} {base_price}"
@@ -262,7 +266,7 @@ class GroceryDealsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
 
             # Best price & best store
             best_offer = sorted_offers[0] if sorted_offers else None
-            best_price = best_offer["price_raw"] if best_offer else None
+            best_price = best_offer["price"] if best_offer else None
             best_store = best_offer["store_title"] if best_offer else None
 
             # On sale stores set
@@ -274,7 +278,7 @@ class GroceryDealsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 sname = o["store_name"]
                 all_prices.setdefault(sname, []).append(
                     {
-                        "product": o["title"],
+                        "product": o["product_title"],
                         "price": o["price_raw"],
                         "base_price": o["base_price"],
                         "market": o["store_title"],
