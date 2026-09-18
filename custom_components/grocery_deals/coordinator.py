@@ -197,8 +197,7 @@ class GroceryDealsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     def _normalize_offer(
         self, raw: dict[str, Any], domain: str, store_name: str, entry_title: str
     ) -> dict[str, Any]:
-        """Normalize various supermarket offer schemas to a standard format."""
-        # Product title
+        """Normalize the common supermarket offer schema."""
         title = (
             raw.get("product")
             or raw.get("title")
@@ -206,21 +205,7 @@ class GroceryDealsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             or raw.get("header")
             or ""
         )
-
-        # Price
-        price_raw = (
-            raw.get("price")
-            or raw.get("discount_price")
-            or raw.get("discountPrice")
-            or (
-                raw.get("price_box", {}).get("price_val")
-                if isinstance(raw.get("price_box"), dict)
-                else None
-            )
-            or ""
-        )
-
-        # Base price / subtitle / weight
+        price_raw = raw.get("price") or ""
         base_price = (
             raw.get("base_price")
             or raw.get("subtitle")
@@ -228,44 +213,15 @@ class GroceryDealsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             or raw.get("price_per_unit")
             or ""
         )
-
-        # Image link
-        picture = (
-            raw.get("picture_link")
-            or raw.get("image_url")
-            or raw.get("imageUrl")
-            or raw.get("listImage")
-            or raw.get("picture")
-            or ""
-        )
-
-        # Validity
-        valid_from = (
-            raw.get("valid_from")
-            or raw.get("validFrom")
-            or raw.get("date_from")
-            or raw.get("dateFrom")
-            or ""
-        )
-        valid_until = (
-            raw.get("valid_until")
-            or raw.get("valid_to")
-            or raw.get("end_validity_date")
-            or raw.get("validUntil")
-            or raw.get("date_to")
-            or raw.get("date_until")
-            or ""
-        )
-
-        # Category
+        picture = raw.get("picture_link") or raw.get("picture") or ""
+        valid_from = raw.get("valid_from") or ""
+        valid_until = raw.get("valid_until") or ""
         category = raw.get("category") or raw.get("category_title") or ""
-
-        numeric_price = parse_price_value(price_raw)
 
         return {
             "title": str(title).strip(),
             "price_raw": str(price_raw).strip(),
-            "price_numeric": numeric_price,
+            "price_numeric": parse_price_value(price_raw),
             "base_price": str(base_price).strip(),
             "picture": picture,
             "valid_from": valid_from,
