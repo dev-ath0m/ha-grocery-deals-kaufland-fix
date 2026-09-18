@@ -180,9 +180,9 @@ async def test_coordinator_aggregation_with_kaufland(hass: HomeAssistant):
                 {
                     "title": "Kaufland Milk",
                     "price": "0,99 €",
-                    "price_per_unit": "1 l",
-                    "image_url": "https://example.com/milk.jpg",
-                    "date_to": "2026-09-20",
+                    "base_price": "1 l",
+                    "picture_link": "https://example.com/milk.jpg",
+                    "valid_until": "2026-09-20",
                 }
             ]
         }
