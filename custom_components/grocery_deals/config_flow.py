@@ -128,10 +128,6 @@ class GroceryDealsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             SUPPORTED_INTEGRATIONS[d]["name"] for d in SUPPORTED_INTEGRATIONS
         )
 
-        supported_text = ", ".join(
-            SUPPORTED_INTEGRATIONS[d]["name"] for d in SUPPORTED_INTEGRATIONS
-        )
-
         missing_section = ""
         if missing:
             missing_items = "\n".join(
@@ -316,6 +312,10 @@ class GroceryDealsOptionsFlowHandler(config_entries.OptionsFlow):
                 for d in detected
             )
             or "_None detected yet._"
+        )
+
+        supported_text = ", ".join(
+            SUPPORTED_INTEGRATIONS[d]["name"] for d in SUPPORTED_INTEGRATIONS
         )
 
         missing_section = ""
