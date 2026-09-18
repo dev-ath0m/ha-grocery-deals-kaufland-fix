@@ -84,17 +84,40 @@ Kaufland support is intentionally implemented as a small adapter in Grocery Deal
 
 ### HACS (Recommended)
 
+This fork requires **two parts**: Grocery Deals itself and the supermarket integrations that provide the offer data. You need at least **two supported supermarket integrations** configured in Home Assistant.
+
+#### 1. Install Grocery Deals
+
 1. Open **HACS** in Home Assistant.
-2. Click on the three dots in the top right corner and select **Custom repositories**.
-3. Add `FaserF/ha-grocery-deals` with category **Integration**.
-4. Search for **Grocery Deals**.
-5. Click **Download** and restart Home Assistant.
+2. Go to **Integrations** → **⋮** → **Custom repositories**.
+3. Add `dev-ath0m/ha-grocery-deals-kaufland-fix` and select **Integration**.
+4. Find **Grocery Deals** and install it.
+5. Restart Home Assistant.
+
+#### 2. Install the supermarket integrations
+
+Install and configure at least two supported supermarket integrations. For Kaufland, use the dedicated **ha-kaufland** integration:
+
+- `dev-ath0m/ha-kaufland` — provides Kaufland's weekly offers and discount data.
+- Other supported integrations can be installed from their respective repositories listed above.
+
+For a HACS installation, add `dev-ath0m/ha-kaufland` under **HACS → Integrations → ⋮ → Custom repositories**, select **Integration**, then install **ha-kaufland** and restart Home Assistant.
+
+#### 3. Configure Grocery Deals
+
+1. Go to **Settings → Devices & services → Add integration**.
+2. Select **Grocery Deals**.
+3. Enter the product filters you want to track.
+4. Grocery Deals automatically detects the configured supermarket integrations.
+5. Make sure at least two supported supermarket integrations are configured before enabling the aggregator.
 
 ### Manual Installation
 
-1. Download `grocery_deals.zip` from the latest release.
-2. Extract into `<config>/custom_components/grocery_deals/`.
-3. Restart Home Assistant.
+1. Download or clone this repository.
+2. Copy `custom_components/grocery_deals/` into your Home Assistant `<config>/custom_components/` directory.
+3. Install and configure at least two supported supermarket integrations separately.
+4. Restart Home Assistant.
+5. Go to **Settings → Devices & services → Add integration** and add **Grocery Deals**.
 
 ---
 
