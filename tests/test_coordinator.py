@@ -194,3 +194,4 @@ async def test_coordinator_aggregation_with_kaufland(hass: HomeAssistant):
     assert offer["title"] == "Kaufland Milk"
     assert offer["price_numeric"] == 0.99
     assert offer["valid_until"] == "2026-09-20"
+    assert offer["base_price"] == "1 l"
