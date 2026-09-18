@@ -124,6 +124,14 @@ class GroceryDealsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             or "_None detected yet._"
         )
 
+        supported_text = ", ".join(
+            SUPPORTED_INTEGRATIONS[d]["name"] for d in SUPPORTED_INTEGRATIONS
+        )
+
+        supported_text = ", ".join(
+            SUPPORTED_INTEGRATIONS[d]["name"] for d in SUPPORTED_INTEGRATIONS
+        )
+
         missing_section = ""
         if missing:
             missing_items = "\n".join(
@@ -172,6 +180,7 @@ class GroceryDealsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=schema,
             errors=errors,
             description_placeholders={
+                "supported_integrations": supported_text,
                 "detected_integrations": detected_text,
                 "missing_section": missing_section,
                 "detected_note": detected_note,
@@ -368,6 +377,7 @@ class GroceryDealsOptionsFlowHandler(config_entries.OptionsFlow):
             step_id="init",
             data_schema=options_schema,
             description_placeholders={
+                "supported_integrations": supported_text,
                 "detected_integrations": detected_text,
                 "missing_section": missing_section,
             },
