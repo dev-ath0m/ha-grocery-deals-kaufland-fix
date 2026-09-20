@@ -214,8 +214,22 @@ class GroceryDealsCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             or ""
         )
         picture = raw.get("picture_link") or raw.get("picture") or ""
-        valid_from = raw.get("valid_from") or ""
-        valid_until = raw.get("valid_until") or ""
+        valid_from = (
+            raw.get("valid_from")
+            or raw.get("validFrom")
+            or raw.get("date_from")
+            or raw.get("dateFrom")
+            or ""
+        )
+        valid_until = (
+            raw.get("valid_until")
+            or raw.get("validUntil")
+            or raw.get("end_date")
+            or raw.get("endDate")
+            or raw.get("date_to")
+            or raw.get("dateTo")
+            or ""
+        )
         category = raw.get("category") or raw.get("category_title") or ""
 
         return {
